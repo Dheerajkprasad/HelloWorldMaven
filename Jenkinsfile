@@ -1,27 +1,19 @@
-pipeline { 
-    agent any 
+pipeline {
+    agent any
     stages {
-        stage('Build') { 
+        stage('---clean---') {
             steps {
-                withMaven(maven : 'apache-maven-3.3.9'){
-                        bat "mvn clean compile"
-                }
+                sh "mvn clean"
             }
         }
-        stage('Test'){
+        stage('--test--') {
             steps {
-                withMaven(maven : 'apache-maven-3.3.9'){
-                        bat "mvn test"
-                }
-
+                sh "mvn test"
             }
         }
-        stage('Deploy') {
+        stage('--package--') {
             steps {
-               withMaven(maven : 'apache-maven-3.3.9'){
-                        bat "mvn deploy"
-                }
-
+                sh "mvn package"
             }
         }
     }
